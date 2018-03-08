@@ -978,7 +978,7 @@ CollisionDetected:
        LDX    $97                 ;Get the object collided with.                                             ;3    
        JSR    GetObjectAddress    ;Get it's dynamic information.                                             ;6    
        LDA    $97                 ;Get the object collided with.                                             ;3    
-       CMP    #$51                ;Is it carriable?                                                          ;2    
+       CMP    #$48                ;Is it carriable?                                                          ;2    
        BCC    NoObject            ;If not, branch.                                                           ;2    
                                                                                                                    
        LDY    #$00                                                                                           ;2    
@@ -1384,7 +1384,7 @@ MoveRedDragon:
        STA    $D3                 ;Set the High address of Object Store.                                     ;3    
        LDA    #$03                                                                                           ;2    
        STA    $D4                 ;Set the Dragon's Delta                                                    ;3    
-       LDX    #$36                ;Select Dragon #1 : Red                                                    ;2    
+       LDX    #$2D                ;Select Dragon #1 : Red                                                    ;2    
        JSR    MoveDragon                                                                                     ;6    
        RTS                                                                                                   ;6    
                                                                                                                    
@@ -1404,7 +1404,7 @@ MoveYellowDragon:
        STA    $D3                 ;Set the High Address of Object Store.                                     ;3    
        LDA    #$02                                                                                           ;2    
        STA    $D4                 ;Set the Yellow Dragon's Delta.                                            ;3    
-       LDX    #$3F                                                                                           ;2    
+       LDX    #$36                                                                                           ;2    
        JSR    MoveDragon          ;Select Dragon #2 : Yellow.                                                ;6    
        RTS                                                                                                   ;6    
                                                                                                                    
@@ -1425,7 +1425,7 @@ MoveGreenDragon:
        STA    $D3                 ;Set High Address of Object Store.                                         ;3    
        LDA    #$02                                                                                           ;2    
        STA    $D4                 ;Set the Green Dragon's Delta.                                             ;3    
-       LDX    #$48                ;Select Dragon #3 : Green                                                  ;2    
+       LDX    #$3F                ;Select Dragon #3 : Green                                                  ;2    
        JSR    MoveDragon                                                                                     ;6    
        RTS                                                                                                   ;6    
                                                                                                                    
@@ -2773,11 +2773,11 @@ Store9:
 LFF4D:       .byte <PortInfo1,>PortInfo1,    $C8,$00,                      <PortStates,>PortStates,          $00,$00,$00      ;#1 Portcullis #1       Black            09                  
 LFF56:       .byte <PortInfo2,>PortInfo2,    $C9,$00,                      <PortStates,>PortStates,          $00,$00,$00      ;#2 Portcullis #2       Black            12             
 LFF5F:       .byte <PortInfo3,>PortInfo3,    $CA,$00,                      <PortStates,>PortStates,          $00,$00,$00      ;#3 Portcullis #3       Black            1B             
-LFF68:       .byte <EggLeftInfo,>EggLeftInfo,<EggLeftCurr,>EggLeftCurr,    <EggStates,>EggStates,            $0E,$0E,$00      ;#4 Left Egg Half       White            24                
-LFF71:       .byte <NumberInfo,>NumberInfo,  $DD,$00,                      <NumberStates,>NumberStates,      $C8,$00,$00      ;#5 Number              Green            2D              
-LFF7A:       .byte $A4,$00,                  $A8,$00,                      <DragonStates,>DragonStates,      $36,$0E,$00      ;#6 Dragon #1           Red              36                   
-LFF83:       .byte $A9,$00,                  $AD,$00,                      <DragonStates,>DragonStates,      $1A,$06,$00      ;#7 Dragon #2           Yellow           3F                      
-LFF8C:       .byte $AE,$00,                  $B2,$00,                      <DragonStates,>DragonStates,      $C8,$00,$00      ;#8 Dragon #3           Green            48                 
+LFF68:       .byte <NumberInfo,>NumberInfo,  $DD,$00,                      <NumberStates,>NumberStates,      $C8,$00,$00      ;#5 Number              Green            24              
+LFF71:       .byte $A4,$00,                  $A8,$00,                      <DragonStates,>DragonStates,      $36,$0E,$00      ;#6 Dragon #1           Red              2D                   
+LFF7A:       .byte $A9,$00,                  $AD,$00,                      <DragonStates,>DragonStates,      $1A,$06,$00      ;#7 Dragon #2           Yellow           36                      
+LFF83:       .byte $AE,$00,                  $B2,$00,                      <DragonStates,>DragonStates,      $C8,$00,$00      ;#8 Dragon #3           Green            3F                 
+LFF8C:       .byte <EggLeftInfo,>EggLeftInfo,<EggLeftCurr,>EggLeftCurr,    <EggStates,>EggStates,            $0E,$0E,$00      ;#4 Left Egg Half       White            48                
 LFF95:       .byte $B6,$00,                  <SwordCurr,>SwordCurr,        <SwordStates,>SwordStates,        $1A,$06,$00      ;#9 Sword               Yellow           51                    
 LFF9E:       .byte $BC,$00,                  <BridgeCurr,>BridgeCurr,      <BridgeStates,>BridgeStates,      $66,$02,$07      ;#0A Bridge             Purple           5A                  
 LFFA7:       .byte $BF,$00,                  <KeyCurr,>KeyCurr,            <KeyStates,>KeyStates,            $1A,$06,$00      ;#0B Key #01            Yellow           63                       
@@ -2787,7 +2787,7 @@ LFFC2:       .byte $CB,$00,                  $CF,$00,                      <BatS
 LFFCB:       .byte $A1,$00,                  <DotCurr,>DotCurr,            <DotStates,>DotStates,            $08,$08,$00      ;#0F Black Dot          Light Gray       87                 
 LFFD4:       .byte $B9,$00,                  <ChalliseCurr,>ChalliseCurr,  <ChalliseStates,>ChalliseStates,  $CB,$06,$00      ;#10 Challise           Flash            90                 
 LFFDD:       .byte $B3,$00,                  <MagnetCurr,>MagnetCurr,      <MagnetStates,>MagnetStates,      $00,$06,$00      ;#11 Magnet             Black            99             
-LFFE6:       .byte <EggRightInfo,>EggRightInfo,<EggRightCurr,>EggRightCurr,<EggStates,>EggStates,            $0E,$0E,$00      ;#12 Right Egg Half     White             A2               
+LFFE6:       .byte <EggRightInfo,>EggRightInfo,<EggRightCurr,>EggRightCurr,<EggStates,>EggStates,            $0E,$0E,$00      ;#12 Right Egg Half     White            A2               
 LFFEF:       .byte $BC,$00,                  <NullCurr,>NullCurr,          <NullStates,>NullStates,          $00,$00,$00      ;#13 Null               Black            AB               
                                                                                                                    
 ;Not Used                                                                                                          
