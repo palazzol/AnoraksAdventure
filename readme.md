@@ -7,6 +7,10 @@ Instead of finding the signature that the original author placed in the game, Wa
 
 In this version, finding the egg results in a signal sent on unused I/O pins on the 2600.  This signal triggers yet other events...
 
+# Credits
+
+Anorak's Adventure was conceived entirely by Evan Allen.  He doing all the hardware, and everything else downstream of the Atari.  I am only doing the game code hacking.
+
 # Building
 
 This codebase can be built with the venerable [dasm assembler](http://dasm-dillon.sourceforge.net/), using a command line such as
@@ -15,6 +19,6 @@ This codebase can be built with the venerable [dasm assembler](http://dasm-dillo
 
 # Playing
 
-Ideally, you will see out the one true Atari 2600 at the [i3Detroit MakerSpace](https://www.i3detroit.org/), or a nearby event.  But you can also play it on a real Atari, or in an emulator such as [Stella](https://stella-emu.github.io/).
+Ideally, you will seek out the one true Atari 2600 at the [i3Detroit MakerSpace](https://www.i3detroit.org/), or a nearby event.  But you can also play it on a real Atari, or in an emulator such as [Stella](https://stella-emu.github.io/).
 
 
