@@ -38,6 +38,7 @@ CXPPMM  =  $37
 INPT4   =  $3C                                                                                                     
 SWCHA   =  $0280                                                                                                   
 SWCHB   =  $0282                                                                                                   
+DDRB    =  $0283
 INTIM   =  $0284                                                                                                   
 TIM64T  =  $0296                                                                                                   
                                                                                                                    
@@ -595,6 +596,28 @@ MainGameLoop:
        JSR    CheckGameStart      ;Check for Game Start                                                      ;6    
        JSR    MakeSound           ;Make noise if necessary                                                   ;6    
        JSR    CheckInput          ;Check for input.                                                          ;6    
+
+CheckEaster:
+       LDA    $9D                 ;get the carried object
+       CMP    #$48                ;is it the left half egg?
+       BEQ    CheckEaster_2
+       CMP    #$A2                ;is it the right half egg?
+       BNE    CheckEaster_3
+CheckEaster_2:
+       LDA    #$08                ;"Silver"
+       STA    COLUP0              ;half egg
+       STA    COLUP1              ;half egg
+       LDA    #$0E                ;"Blinding White"
+       STA    COLUPF              ;playfield and background
+       STA    COLUBK
+       LDA    #$FF                ;inactive mode
+       STA    $DE
+       LDA    #$34
+       STA    DDRB
+       LDA    #$00
+       STA    SWCHB             ;Drive 3 pins to ground
+CheckEaster_3:
+
        LDA    $DE                 ;Is The Game Active?                                                       ;3    
        BNE    NonActiveLoop       ;If Not Branch..                                                           ;2    
        LDA    $B9                 ;Get the room the Chalise is in.                                           ;3    
@@ -719,6 +742,9 @@ SetupRoomObjects_2:
 SignalGameStart:
        LDA    #$00                ;Signal that the game has started.                                         ;2    
        STA    $DE                                                                                            ;3    
+
+       STA    DDRB                ;Pins are no longer driven low                                             ;3
+
        LDA    #$AB                ;Set no object being carried.                                              ;2
        STA    $9D                                                                                            ;3    
 StoreSwitches:
@@ -2556,45 +2582,6 @@ GfxEggRight:
        .byte $E0                  ;XXX                                                                       
        .byte $00
 
-       .byte $8F                  ;X   XXXX                                                                 
-       .byte $89                  ;X   X  X                                                                  
-       .byte $0F                  ;    XXXX                                                                  
-       .byte $8A                  ;X   X X                                                                   
-       .byte $E9                  ;XXX X  X                                                                  
-       .byte $80                  ;X                                                                         
-       .byte $8E                  ;X   XXX                                                                   
-       .byte $0A                  ;    X X                                                                   
-       .byte $EE                  ;XXX XXX                                                                   
-       .byte $A0                  ;X X                                                                      
-       .byte $E8                  ;XXX X                                                                     
-       .byte $88                  ;X   X                                                                     
-       .byte $EE                  ;XXX XXX                                                                   
-       .byte $0A                  ;    X X                                                                   
-       .byte $8E                  ;X   XXX                                                                   
-       .byte $E0                  ;XXX                                                                       
-       .byte $A4                  ;X X  X                                                                    
-       .byte $A4                  ;X X  X                                                                    
-       .byte $04                  ;     X                                                                    
-       .byte $80                  ;X                                                                         
-       .byte $08                  ;    X                                                                     
-       .byte $0E                  ;    XXX                                                                   
-       .byte $0A                  ;    X X                                                                   
-       .byte $0A                  ;    X X                                                                   
-       .byte $80                  ;X                                                                         
-       .byte $0E                  ;    XXX                                                                   
-       .byte $0A                  ;    X X                                                                   
-       .byte $0E                  ;    XXX                                                                   
-       .byte $08                  ;    X                                                                     
-       .byte $0E                  ;    XXX                                                                   
-       .byte $80                  ;X                                                                         
-       .byte $04                  ;     X                                                                    
-       .byte $0E                  ;    XXX                                                                   
-       .byte $04                  ;     X                                                                    
-       .byte $04                  ;     X                                                                    
-       .byte $04                  ;     X                                                                    
-       .byte $80                  ;X                                                                         
-       .byte $04                  ;     X                                                                    
-       .byte $0E                  ;    XXX                                                                   
        .byte $04                  ;     X                                                                    
        .byte $04                  ;     X                                                                    
        .byte $04                  ;     X                                                                    
