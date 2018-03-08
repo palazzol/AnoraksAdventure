@@ -433,14 +433,14 @@ ResizeObject2:
 ;Fill cache with two objects in this room.                                                                         
 CacheObjects:
        LDY    $9C                 ;Get Last Object                                                           ;3    
-       LDA    #$A2                ;Set cache to                                                              ;2    
+       LDA    #$AB                ;Set cache to                                                              ;2
        STA    $95                 ;      no-ojects.                                                          ;3    
        STA    $96                                                                                            ;3    
 MoveNextObject:
        TYA                                                                                                   ;2    
        CLC                        ;Goto the next object to                                                   ;2    
        ADC    #$09                ;check (add nine).                                                         ;2    
-       CMP    #$A2                ;Check if over maximum.                                                    ;2    
+       CMP    #$AB                ;Check if over maximum.                                                    ;2
        BCC    GetObjectsInfo                                                                                          ;2    
        LDA    #$00                ;If so, wrap to zero.                                                      ;2    
 GetObjectsInfo:
@@ -455,7 +455,7 @@ GetObjectsInfo:
        BNE    CheckForMoreObjects ;If not lets try next object (branch)                                      ;2    
                                                                                                                    
        LDA    $95                 ;Check first slot.                                                         ;3    
-       CMP    #$A2                ;If not default (no-object)                                                ;2    
+       CMP    #$AB                ;If not default (no-object)                                                ;2
        BNE    StoreObjectToPrint  ;then branch.                                                              ;2    
                                                                                                                    
        STY    $95                 ;Store this object's number to print                                       ;3    
@@ -673,7 +673,7 @@ CheckGameStart:
        STA    $AD                 ;Set the yellow dragon's state to OK.                                      ;3    
        STA    $B2                 ;Set the green dragon's state to OK.                                       ;3    
        STA    $DF                 ;Set the note count to zero.. (ops!??)                                     ;3    
-       LDA    #$A2                                                                                           ;2    
+       LDA    #$AB                                                                                           ;2
        STA    $9D                 ;Set no object being carried.                                              ;3    
 CheckReset:
        LDA    SWCHB               ;Get the console switches.                                                 ;4    
@@ -719,7 +719,7 @@ SetupRoomObjects_2:
 SignalGameStart:
        LDA    #$00                ;Signal that the game has started.                                         ;2    
        STA    $DE                                                                                            ;3    
-       LDA    #$A2                ;Set no object being carried.                                              ;2    
+       LDA    #$AB                ;Set no object being carried.                                              ;2
        STA    $9D                                                                                            ;3    
 StoreSwitches:
        LDA    SWCHB               ;Store the current console switches                                        ;4    
@@ -937,7 +937,7 @@ PickupPutdown:
        CMP    #$40                ;Was it previously pressed?                                                ;2    
        BNE    PickupPutdown_2     ;If not branch.                                                            ;2    
                                                                                                                    
-       LDA    #$A2                                                                                           ;2    
+       LDA    #$AB                                                                                           ;2
        CMP    $9D                 ;If nothing is being carried                                               ;3    
        BEQ    PickupPutdown_2     ;      then branch.                                                        ;2    
                                                                                                                    
@@ -1023,7 +1023,7 @@ NoObject:
 ;Move the carried object
 MoveCarriedObject:                                                                                           
        LDX    $9D                 ;Get the object being carried.                                             ;3    
-       CPX    #$A2                ;If nothing then branch (return)                                           ;2    
+       CPX    #$AB                ;If nothing then branch (return)                                           ;2
        BEQ    MoveCarriedObject_2                                                                            ;2    
                                                                                                                    
        JSR    GetObjectAddress    ;Get it's dynamic information.                                             ;6    
@@ -1267,7 +1267,7 @@ FindObjHit:
        CPX    $96                 ;Is object 2 the one being hit?                                            ;3    
        BEQ    FindObjHit_4        ;If so, Branch.                                                            ;2    
 FindObjHit_2:                                                                                                                   
-       LDA    #$A2                ;Therefore select the other.                                               ;2    
+       LDA    #$AB                ;Therefore select the other.                                               ;2
        RTS                                                                                                   ;6    
 FindObjHit_3:                                                                                                                   
        LDA    $96                 ;Therefore select the other.                                               ;3    
@@ -1647,7 +1647,7 @@ MoveBat_4:
        CMP    Store1,Y             ;Are the the Same?                                                         ;4    
        BNE    MoveBat_5           ;If not Branch.                                                            ;2    
                                                                                                                    
-       LDA    #$A2                ;Set Nothing Being                                                         ;2    
+       LDA    #$AB                ;Set Nothing Being                                                         ;2
        STA    $9D                 ;      Carried.                                                            ;3    
 MoveBat_5:                                                                                                                   
        RTS                                                                                                   ;6    
@@ -1699,7 +1699,7 @@ Portals_3:
 
 Portals_4:                                                                                                                   
        LDA    $97                 ;Get the Object that hit the Portcullis.                                   ;3    
-       CMP    #$A2                ;Is it nothing?                                                            ;2    
+       CMP    #$AB                ;Is it nothing?                                                            ;2
        BEQ    Portals_5           ;If so, Branch.                                                            ;2    
                                                                                                                    
        LDX    $97                 ;Get Object.                                                               ;3    
@@ -2508,53 +2508,50 @@ GfxDot:
        .byte $80                  ;X                                                                         
        .byte $00                                                                                                   
                                                                                                                    
-;Object #4 : State FF : Graphic                                                                                    
-GfxAuthor:
-       .byte $F0                  ;XXXX                                                                      
+;Object #4,#12 : State 00 : Graphic                                                                                    
+GfxEggLeft:
+       .byte $01                  ;       X                                                                         
+       .byte $07                  ;     XXX                                                                         
+       .byte $0F                  ;    XXXX                                                                       
+       .byte $1F                  ;   XXXXX                                                                       
+       .byte $3F                  ;  XXXXXX                                                                      
+       .byte $3F                  ;  XXXXXX                                                                          
+       .byte $7F                  ; XXXXXXX                                                                          
+       .byte $7F                  ; XXXXXXX                                                                          
+       .byte $FF                  ;XXXXXXXX                                                                           
+       .byte $FF                  ;XXXXXXXX                                                                           
+       .byte $FF                  ;XXXXXXXX                                                                           
+       .byte $FF                  ;XXXXXXXX                                                                        
+       .byte $FF                  ;XXXXXXXX                                                                     
+       .byte $FF                  ;XXXXXXXX                                                                     
+       .byte $7F                  ; XXXXXXX                                                                      
+       .byte $3F                  ;  XXXXXX                                                                      
+       .byte $1F                  ;   XXXXX                                                                       
+       .byte $07                  ;     XXX                                                                       
+       .byte $00
+
+;Object #4,#12 : State FF : Graphic                                                                                    
+GfxEggRight:
        .byte $80                  ;X                                                                         
-       .byte $80                  ;X                                                                         
-       .byte $80                  ;X                                                                         
-       .byte $F4                  ;XXXX X                                                                    
-       .byte $04                  ;     X                                                                    
-       .byte $87                  ;X    XXX                                                                  
-       .byte $E5                  ;XXX  X X                                                                  
-       .byte $87                  ;X    XXX                                                                  
-       .byte $80                  ;X                                                                         
-       .byte $05                  ;     X X                                                                  
-       .byte $E5                  ;XXX  X X                                                                 
-       .byte $A7                  ;X X  XXX                                                                  
-       .byte $E1                  ;XXX    X                                                                  
-       .byte $87                  ;X    XXX                                                                  
+       .byte $E0                  ;XXX                                                                         
+       .byte $F0                  ;XXXX                                                                       
+       .byte $F8                  ;XXXXX                                                                      
+       .byte $FC                  ;XXXXXX                                                                      
+       .byte $FC                  ;XXXXXX                                                                          
+       .byte $FE                  ;XXXXXXX                                                                          
+       .byte $FE                  ;XXXXXXX                                                                          
+       .byte $FF                  ;XXXXXXXX                                                                           
+       .byte $FF                  ;XXXXXXXX                                                                           
+       .byte $FF                  ;XXXXXXXX                                                                           
+       .byte $FF                  ;XXXXXXXX                                                                        
+       .byte $FF                  ;XXXXXXXX                                                                     
+       .byte $FF                  ;XXXXXXXX                                                                     
+       .byte $FE                  ;XXXXXXX                                                                      
+       .byte $FC                  ;XXXXXX                                                                      
+       .byte $F8                  ;XXXXX                                                                       
        .byte $E0                  ;XXX                                                                       
-       .byte $01                  ;       X                                                                  
-       .byte $E0                  ;XXX                                                                       
-       .byte $A0                  ;X X                                                                       
-       .byte $F0                  ;XXXX                                                                      
-       .byte $01                  ;       X                                                                  
-       .byte $40                  ; X                                                                        
-       .byte $E0                  ;XXX                                                                       
-       .byte $40                  ; X                                                                       
-       .byte $40                  ; X                                                                        
-       .byte $40                  ; X                                                                        
-       .byte $01                  ;       X                                                                  
-       .byte $E0                  ;XXX                                                                       
-       .byte $A0                  ;X X                                                                       
-       .byte $E0                  ;XXX                                                                       
-       .byte $80                  ;X                                                                         
-       .byte $E0                  ;XXX                                                                       
-       .byte $01                  ;       X                                                                  
-       .byte $20                  ;  X                                                                       
-       .byte $20                  ;  X                                                                       
-       .byte $E0                  ;XXX                                                                       
-       .byte $A0                  ;X X                                                                       
-       .byte $E0                  ;XXX                                                                       
-       .byte $01                  ;       X                                                                  
-       .byte $01                  ;       X                                                                  
-       .byte $01                  ;       X                                                                  
-       .byte $88                  ;   X   X                                                                  
-       .byte $A8                  ;X X X                                                                     
-       .byte $A8                  ;X X X                                                                     
-       .byte $A8                  ;X X X                                                                     
+       .byte $00
+
        .byte $F8                  ;XXXXX                                                                     
        .byte $01                  ;       X                                                                  
        .byte $E0                  ;XXX                                                                       
@@ -2607,18 +2604,26 @@ GfxAuthor:
        .byte $04                  ;     X                                                                    
        .byte $00                                                                                                   
                                                                                                                    
-;Object $4 : Author's Name   
-AuthorInfo:                                                                                      
-       .byte $1E,$50,$69          ;Room 1E, (50, 69)                                                             
-                                                                                                                   
-;Object #4 : Current State  
-AuthorCurr:                                                                                       
-       .byte $00                                                                                                   
-                                                                                                                   
-;Object #4 : States                                                                                                
-AuthorStates:
-       .byte $FF,<GfxAuthor,>GfxAuthor          ;State FF at &FD88                                                             
-                                                                                                                   
+;Object #4 : Left Half Egg
+EggLeftInfo:
+       .byte $1E,$49,$44          ;Room 1E, (49, 44)
+
+;Object #4 : Current State
+EggLeftCurr:
+       .byte $00
+
+;Object #12 : Right Half Egg
+EggRightInfo:
+       .byte $1E,$51,$44          ;Room 1E, (51, 44)
+
+EggRightCurr:
+       .byte $FF
+
+;Object #4,#12 : States
+EggStates:
+       .byte $00,<GfxEggLeft,>GfxEggLeft          ;State 00
+       .byte $FF,<GfxEggRight,>GfxEggRight        ;State FF
+
 ;Object #10 : State                                                                                                
 ChalliseCurr:
        .byte $00                                                                                                   
@@ -2772,7 +2777,7 @@ Store9:
 LFF4D:       .byte <PortInfo1,>PortInfo1,    $C8,$00,                      <PortStates,>PortStates,          $00,$00,$00      ;#1 Portcullis #1       Black            09                  
 LFF56:       .byte <PortInfo2,>PortInfo2,    $C9,$00,                      <PortStates,>PortStates,          $00,$00,$00      ;#2 Portcullis #2       Black            12             
 LFF5F:       .byte <PortInfo3,>PortInfo3,    $CA,$00,                      <PortStates,>PortStates,          $00,$00,$00      ;#3 Portcullis #3       Black            1B             
-LFF68:       .byte <AuthorInfo,>AuthorInfo,  <AuthorCurr,>AuthorCurr,      <AuthorStates,>AuthorStates,      $CB,$00,$00      ;#4 Name                Flash            24                
+LFF68:       .byte <EggLeftInfo,>EggLeftInfo,<EggLeftCurr,>EggLeftCurr,    <EggStates,>EggStates,            $0E,$0E,$00      ;#4 Left Egg Half       White            24                
 LFF71:       .byte <NumberInfo,>NumberInfo,  $DD,$00,                      <NumberStates,>NumberStates,      $C8,$00,$00      ;#5 Number              Green            2D              
 LFF7A:       .byte $A4,$00,                  $A8,$00,                      <DragonStates,>DragonStates,      $36,$0E,$00      ;#6 Dragon #1           Red              36                   
 LFF83:       .byte $A9,$00,                  $AD,$00,                      <DragonStates,>DragonStates,      $1A,$06,$00      ;#7 Dragon #2           Yellow           3F                      
@@ -2786,10 +2791,11 @@ LFFC2:       .byte $CB,$00,                  $CF,$00,                      <BatS
 LFFCB:       .byte $A1,$00,                  <DotCurr,>DotCurr,            <DotStates,>DotStates,            $08,$08,$00      ;#0F Black Dot          Light Gray       87                 
 LFFD4:       .byte $B9,$00,                  <ChalliseCurr,>ChalliseCurr,  <ChalliseStates,>ChalliseStates,  $CB,$06,$00      ;#10 Challise           Flash            90                 
 LFFDD:       .byte $B3,$00,                  <MagnetCurr,>MagnetCurr,      <MagnetStates,>MagnetStates,      $00,$06,$00      ;#11 Magnet             Black            99             
-LFFE6:       .byte $BC,$00,                  <NullCurr,>NullCurr,          <NullStates,>NullStates,          $00,$00,$00      ;#12 Null               Black            A2               
+LFFE6:       .byte <EggRightInfo,>EggRightInfo,<EggRightCurr,>EggRightCurr,<EggStates,>EggStates,            $0E,$0E,$00      ;#12 Right Egg Half     White             A2               
+LFFEF:       .byte $BC,$00,                  <NullCurr,>NullCurr,          <NullStates,>NullStates,          $00,$00,$00      ;#13 Null               Black            AB               
                                                                                                                    
 ;Not Used                                                                                                          
-LFFEF: .byte $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00                                                     
+LFFF8:  .byte $00,$00                                                     
                                                                                                                    
 ;6502 Vectors (Not Used??                                                                                          
 LFFFA:  .byte $00,$F0                                                                                               
