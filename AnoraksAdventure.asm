@@ -681,8 +681,8 @@ CheckGameStart:
        LDA    $DE                 ;Has the Game Started?                                                     ;3    
        CMP    #$FF                ;If not then branch.                                                       ;2    
        BEQ    SetupRoomObjects                                                                               ;2    
-;       LDA    #$11                ;Get the yellow castle room.                                               ;2    
-       LDA    #$1E                ;Start with the secret room.                                               ;2    
+       LDA    #$11                ;Get the yellow castle room.                                               ;2    
+;       LDA    #$1E                ;Start with the secret room.                                               ;2    
        STA    $8A                       ;Make it the current room.                                           ;3    
        STA    $E2                       ;Make it the previous room.                                          ;3    
        LDA    #$50                ;Get the X coordinate.                                                     ;2    
