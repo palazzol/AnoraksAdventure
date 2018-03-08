@@ -999,6 +999,8 @@ PickupObject:
        LDA    $97                 ;Set the object as being                                                   ;3    
        STA    $9D                 ;      carried.                                                            ;3    
                                                                                                                    
+       LDA    $94                 ;Get the high byte of the dynamics address
+       BNE    NoObject            ;if this is not zero, position is not in ram, not really movable
        LDX    $93                 ;Get the dynamice address low byte.                                        ;3    
        LDY    #$06                                                                                           ;2    
        LDA    $99                 ;????                                                                      ;3    
@@ -1027,6 +1029,8 @@ MoveCarriedObject:
        BEQ    MoveCarriedObject_2                                                                            ;2    
                                                                                                                    
        JSR    GetObjectAddress    ;Get it's dynamic information.                                             ;6    
+       LDA    $94                 ;Get the high byte of the dynamics address
+       BNE    MoveCarriedObject_2 ;if this is not zero, position is not in ram, not really movable
        LDY    #$00                                                                                           ;2    
                                                                                                                    
        LDA    $8A                 ;Get the current room.                                                     ;3    
@@ -2552,14 +2556,6 @@ GfxEggRight:
        .byte $E0                  ;XXX                                                                       
        .byte $00
 
-       .byte $F8                  ;XXXXX                                                                     
-       .byte $01                  ;       X                                                                  
-       .byte $E0                  ;XXX                                                                       
-       .byte $A0                  ;X X                                                                       
-       .byte $F0                  ;XXXX                                                                      
-       .byte $01                  ;       X                                                                  
-       .byte $80                  ;X                                                                         
-       .byte $E0                  ;XXX                                                                       
        .byte $8F                  ;X   XXXX                                                                 
        .byte $89                  ;X   X  X                                                                  
        .byte $0F                  ;    XXXX                                                                  
