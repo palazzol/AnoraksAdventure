@@ -5,7 +5,7 @@ This is a modification to [Warren Robinett's](http://www.warrenrobinett.com/) cl
 
 Instead of finding the signature that the original author placed in the game, Wade finds a large white egg which triggers the end of the contest, with a "blinding white flash of light".
 
-In this version, finding the egg results in a signal sent on unused I/O pins on the 2600.  This signal triggers yet other events...
+In this version, finding the egg results in pins 1-4 of the right joystick port being pulled to ground.  This signal triggers yet other events...
 
 # Credits
 

@@ -37,6 +37,7 @@ CXBLPF  =  $36
 CXPPMM  =  $37                                                                                                     
 INPT4   =  $3C                                                                                                     
 SWCHA   =  $0280                                                                                                   
+DDRA    =  $0281
 SWCHB   =  $0282                                                                                                   
 DDRB    =  $0283
 INTIM   =  $0284                                                                                                   
@@ -612,10 +613,10 @@ CheckEaster_2:
        STA    COLUBK
        LDA    #$FF                ;inactive mode
        STA    $DE
-       LDA    #$34
-       STA    DDRB
+       LDA    #$0F
+       STA    DDRA
        LDA    #$00
-       STA    SWCHB             ;Drive 3 pins to ground
+       STA    SWCHA             ;Drive right joystick pins to ground
 CheckEaster_3:
 
        LDA    $DE                 ;Is The Game Active?                                                       ;3    
@@ -743,7 +744,7 @@ SignalGameStart:
        LDA    #$00                ;Signal that the game has started.                                         ;2    
        STA    $DE                                                                                            ;3    
 
-       STA    DDRB                ;Pins are no longer driven low                                             ;3
+       STA    DDRA                ;Pins are no longer driven low                                             ;3
 
        LDA    #$AB                ;Set no object being carried.                                              ;2
        STA    $9D                                                                                            ;3    
